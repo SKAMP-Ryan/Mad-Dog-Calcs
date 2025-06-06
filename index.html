@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Construction Calculator</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Calculate post spacing and conduit measurements for construction projects">
+    <meta name="theme-color" content="#3b82f6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Construction Calc">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkNvbnN0cnVjdGlvbiBDYWxjdWxhdG9yIiwKICAic2hvcnRfbmFtZSI6ICJDb25zdHJ1Y3Rpb24gQ2FsYyIsCiAgImRlc2NyaXB0aW9uIjogIkNhbGN1bGF0ZSBwb3N0IHNwYWNpbmcgYW5kIGNvbmR1aXQgbWVhc3VyZW1lbnRzIGZvciBjb25zdHJ1Y3Rpb24gcHJvamVjdHMiLAogICJzdGFydF91cmwiOiAiLyIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzZiNzI4MCIsCiAgInRoZW1lX2NvbG9yIjogIiMzYjgyZjYiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSGRwWkhSb1BTSXhNREkwSWlCb1pXbG5hSFE5SWpFd01qUWlQZ284Y21WamRDQjNhV1IwYUQwaU1UQXlOQ0lpSUdobGFXZG9kRDBpTVRBeU5DSWlJR1pwYkd3OUlpTXpZamN5WmpZaUx6NDhjbVZqZENCNFBTSXlOU0lpSUhrOUlqSTFJaUIzYVdSMGFEMGlOemMwSWlCb1pXbG5hSFE5SWpjM05DSWlJR1pwYkd3OUlpTm1abU1pTHo0OGNtVmpkQ0I0UFNJeU5UVWlJSGs5SWpJMU5TSXNJSGRWWVHZUTNQAUI2PjS3klaUkkXQvVDyUGNOSSU5QjxRNjU5a3dpeS1kT3M1b2YtcnIzRW93Rx2FzeRlONU1EYWZCnXAkStWa0VGNy9QZi1Jc2xWd3I2d29nPT0iLAogICAgICAic2l6ZXMiOiAiNTEyeDUxMiIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiLAogICAgICAicHVycG9zZSI6ICJhbnkgbWFza2FibGUiCiAgICB9LAogICAgewogICAgICAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNJeE1ESTBJaUJvWldsbmFIUTlJakV3TWpRaVBnbzhjbVZqZENCM2FXUjBhRDBpTVRBeU5DSWlJR2hsYVdkb2REMGlNVEF5TkNJaUlHWnBiR3c5SWlNellqY3laalo2TUM5eUx6NDhjbVZqZENCNFBTSXlOU0lpSUhrOUlqSTFJaUIzYVdSMGFEMGlOemMwSWlCb1pXbG5hSFE5SWpjM05DSWlJR1pwYkd3OUlpTm1abU1pTHo0OGNtVmpkQ0I0UFNJeU5UVWlJSGs5SWpJMU5TSXNJSGRIU2w0X2dFLVZEa0VUYWIxVjBZWEtKTkVFWUcza1VKTXNLS0J2b3RzRDVaak9pZXJGaGdYT1ZrVEdmVFFvcGhnPT0iLAogICAgICAic2l6ZXMiOiAiMTkyeDE5MiIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiCiAgICB9CiAgXQp9">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiPgo8cmVjdCB3aWR0aD0iMTAyNCIgaGVpZ2h0PSIxMDI0IiBmaWxsPSIjM2I4MmY2Ii8+CjxyZWN0IHg9IjI1IiB5PSIyNSIgd2lkdGg9Ijc3NCIgaGVpZ2h0PSI3NzQiIGZpbGw9IiNmZmYiLz4KPHJlY3QgeD0iMjU1IiB5PSIyNTUiIHdpZHRoPSIzMTQiIGhlaWdodD0iMzE0IiBmaWxsPSIjM2I4MmY2Ii8+Cjx0ZXh0IHg9IjUxMiIgeT0iNjUwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgwIiBmaWxsPSIjMzc0MTUxIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5DPC90ZXh0Pgo8L3N2Zz4=">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #6b7280;
+            padding: 20px;
+            min-height: 100vh;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #374151;
+            font-size: 2.2em;
+            font-weight: 700;
+        }
+        
+        .install-button {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: none;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+        
+        .install-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        .install-button:active {
+            transform: translateY(0);
+        }
+        
+        .calculator-section {
+            background-color: #f8fafc;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.2s;
+        }
+        
+        .calculator-section:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-title {
+            font-size: 1.4em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title::before {
+            content: "";
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border-radius: 2px;
+            margin-right: 12px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+            font-size: 16px;
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 18px;
+            background-color: #ffffff;
+            transition: all 0.2s;
+            -webkit-appearance: none;
+            -moz-appearance: textfield;
+        }
+        
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .result-box {
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s;
+        }
+        
+        .post-result {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            color: #1e40af;
+            border: 2px solid #3b82f6;
+        }
+        
+        .conduit-results {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        @media (max-width: 640px) {
+            .conduit-results {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+        }
+        
+        .conduit-result {
+            padding: 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.2s;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .conduit-result:hover {
+            transform: translateY(-1px);
+        }
+        
+        .bend-63 {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            color: #92400e;
+            border: 2px solid #f59e0b;
+        }
+        
+        .bend-32 {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            color: #065f46;
+            border: 2px solid #10b981;
+        }
+        
+        .double-bend {
+            background: linear-gradient(135deg, #fce7f3, #fbcfe8);
+            color: #be185d;
+            border: 2px solid #ec4899;
+        }
+        
+        .instructions {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            border: 2px solid #3b82f6;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 25px;
+        }
+        
+        .instructions h3 {
+            color: #1e40af;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .instructions p {
+            color: #374151;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .offline-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ef4444;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            display: none;
+            z-index: 1000;
+        }
+        
+        .offline-indicator.online {
+            background: #10b981;
+        }
+        
+        /* Loading animation */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        
+        .pulse {
+            animation: pulse 0.3s ease-in-out;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Construction Calculator</h1>
+            <button class="install-button" id="installButton">📱 Install App</button>
+        </div>
+        
+        <!-- Post Spacing Calculator -->
+        <div class="calculator-section">
+            <div class="section-title">🏗️ Star Picket Post Spacing</div>
+            <div class="input-group">
+                <label for="totalLength">Total Length (meters):</label>
+                <input type="number" id="totalLength" step="0.1" placeholder="Enter total length" oninput="calculatePostSpacing()">
+            </div>
+            <div class="result-box post-result" id="postResult">
+                Enter a length to calculate spacing
+            </div>
+        </div>
+        
+        <!-- Conduit Calculator -->
+        <div class="calculator-section">
+            <div class="section-title">⚡ Conduit Quick Maths</div>
+            <div class="input-group">
+                <label for="totalMeasurement">Total Measurement (mm):</label>
+                <input type="number" id="totalMeasurement" step="1" placeholder="Enter total measurement" oninput="calculateConduit()">
+            </div>
+            <div class="conduit-results">
+                <div class="conduit-result bend-63" id="single63">
+                    Single Bend 63mm: --
+                </div>
+                <div class="conduit-result bend-32" id="single32">
+                    Single Bend 32mm: --
+                </div>
+                <div class="conduit-result double-bend" id="double63">
+                    Double Bend 63mm: --
+                </div>
+                <div class="conduit-result double-bend" id="double32">
+                    Double Bend 32mm: --
+                </div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 How to Use:</h3>
+            <p><strong>Post Spacing:</strong> Enter the total length of your fence line. The calculator will determine the optimal spacing (max 3m) between posts.</p>
+            <p><strong>Conduit:</strong> Enter your total measurement to get cut lengths for different bend types (63mm and 32mm conduit).</p>
+            <p><strong>💡 Tip:</strong> Install this app on your device for offline access on construction sites!</p>
+        </div>
+    </div>
+    
+    <div class="offline-indicator" id="offlineIndicator">
+        📶 Offline Mode
+    </div>
+    
+    <script>
+        // PWA Install functionality
+        let deferredPrompt;
+        const installButton = document.getElementById('installButton');
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installButton.style.display = 'block';
+        });
+        
+        installButton.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                deferredPrompt = null;
+                installButton.style.display = 'none';
+            }
+        });
+        
+        window.addEventListener('appinstalled', () => {
+            installButton.style.display = 'none';
+        });
+        
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                const swCode = `
+                    const CACHE_NAME = 'construction-calc-v1';
+                    const urlsToCache = [
+                        '/',
+                        'index.html'
+                    ];
+                    
+                    self.addEventListener('install', (event) => {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then((cache) => cache.addAll(urlsToCache))
+                        );
+                    });
+                    
+                    self.addEventListener('fetch', (event) => {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then((response) => {
+                                    if (response) {
+                                        return response;
+                                    }
+                                    return fetch(event.request);
+                                }
+                            )
+                        );
+                    });
+                `;
+                
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const sw = URL.createObjectURL(blob);
+                
+                navigator.serviceWorker.register(sw)
+                    .then(() => console.log('SW registered'))
+                    .catch(() => console.log('SW registration failed'));
+            });
+        }
+        
+        // Online/Offline detection
+        const offlineIndicator = document.getElementById('offlineIndicator');
+        
+        function updateOnlineStatus() {
+            if (navigator.onLine) {
+                offlineIndicator.textContent = '📶 Online';
+                offlineIndicator.className = 'offline-indicator online';
+            } else {
+                offlineIndicator.textContent = '📵 Offline Mode';
+                offlineIndicator.className = 'offline-indicator';
+            }
+            offlineIndicator.style.display = 'block';
+            setTimeout(() => {
+                offlineIndicator.style.display = 'none';
+            }, 3000);
+        }
+        
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+        
+        // Calculator functions with animations
+        function calculatePostSpacing() {
+            const totalLength = parseFloat(document.getElementById('totalLength').value);
+            const resultDiv = document.getElementById('postResult');
+            
+            // Add loading effect
+            resultDiv.classList.add('loading');
+            
+            setTimeout(() => {
+                if (!totalLength || totalLength <= 0) {
+                    resultDiv.textContent = 'Enter a valid length to calculate spacing';
+                    resultDiv.classList.remove('loading');
+                    return;
+                }
+                
+                // Your formula: length / ROUNDUP(length/3, 0)
+                const numberOfSpaces = Math.ceil(totalLength / 3);
+                const actualSpacing = totalLength / numberOfSpaces;
+                
+                resultDiv.innerHTML = `
+                    <div style="font-size: 1.3em; margin-bottom: 8px;">
+                        <strong>📏 Spacing: ${actualSpacing.toFixed(2)}m</strong>
+                    </div>
+                    <div style="font-size: 0.9em; opacity: 0.8;">
+                        ${numberOfSpaces} spaces for ${totalLength}m total length
+                    </div>
+                `;
+                
+                resultDiv.classList.remove('loading');
+                resultDiv.classList.add('pulse');
+                setTimeout(() => resultDiv.classList.remove('pulse'), 300);
+            }, 100);
+        }
+        
+        function calculateConduit() {
+            const totalMeasurement = parseFloat(document.getElementById('totalMeasurement').value);
+            
+            // Add loading effect to all conduit results
+            const conduitElements = ['single63', 'single32', 'double63', 'double32'];
+            conduitElements.forEach(id => {
+                document.getElementById(id).classList.add('loading');
+            });
+            
+            setTimeout(() => {
+                if (!totalMeasurement || totalMeasurement <= 0) {
+                    document.getElementById('single63').textContent = 'Single Bend 63mm: --';
+                    document.getElementById('single32').textContent = 'Single Bend 32mm: --';
+                    document.getElementById('double63').textContent = 'Double Bend 63mm: --';
+                    document.getElementById('double32').textContent = 'Double Bend 32mm: --';
+                } else {
+                    // Based on your spreadsheet data
+                    const single63Cut = totalMeasurement - 370;
+                    const single32Cut = totalMeasurement - 330;
+                    const double63Cut = totalMeasurement - 740;
+                    const double32Cut = totalMeasurement - 660;
+                    
+                    document.getElementById('single63').innerHTML = `Single Bend 63mm:<br><strong>${single63Cut}mm</strong>`;
+                    document.getElementById('single32').innerHTML = `Single Bend 32mm:<br><strong>${single32Cut}mm</strong>`;
+                    document.getElementById('double63').innerHTML = `Double Bend 63mm:<br><strong>${double63Cut}mm</strong>`;
+                    document.getElementById('double32').innerHTML = `Double Bend 32mm:<br><strong>${double32Cut}mm</strong>`;
+                }
+                
+                // Remove loading and add pulse effect
+                conduitElements.forEach(id => {
+                    const element = document.getElementById(id);
+                    element.classList.remove('loading');
+                    element.classList.add('pulse');
+                    setTimeout(() => element.classList.remove('pulse'), 300);
+                });
+            }, 100);
+        }
+        
+        // Prevent zoom on double tap for mobile
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+        
+        // Auto-focus first input on load
+        window.addEventListener('load', () => {
+            document.getElementById('totalLength').focus();
+        });
+    </script>
+</body>
+</html>
